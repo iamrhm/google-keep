@@ -7,9 +7,8 @@ import NoteForm from "../../components/forms/note";
 const NoteModal = () => {
   const dispatch = useDispatch();
   const { router, currentNote } = useSelector((state) => state);
-  const noteId = router.location.hash.split("/")[
-    router.location.hash.length - 1
-  ];
+  const hashArray = router.location.hash.split("/");
+  const noteId = hashArray[hashArray.length - 1];
 
   const fetchNote = React.useCallback(() => {
     if (noteId) dispatch(getNoteDetailById(noteId));
@@ -21,10 +20,11 @@ const NoteModal = () => {
 
   React.useEffect(() => {
     fetchNote();
-  }, [fetchNote]);
+  }, [fetchNote, dispatch]);
 
   return (
     <div>
+      {console.log(currentNote, noteId)}
       {currentNote && noteId ? (
         <div>
           <NoteForm initialNote={currentNote} saveNote={updateNoteData} />

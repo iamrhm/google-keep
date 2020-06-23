@@ -17,24 +17,24 @@ const LandingPage = ({ history }) => {
     fetchNotes();
   }, [fetchNotes]);
 
+  function openNoteModal(noteId) {
+    console.log("noteId", noteId);
+    history.push({
+      hash: `/note/${noteId}`
+    });
+  }
   return (
     <div>
       <div>
         <CreateNote />
       </div>
       {displayPanelStatus.showArchived ? (
-        <div>{getArchivedNotes(allNotes)}</div>
+        <div>{getArchivedNotes(allNotes, openNoteModal)}</div>
       ) : (
-        <React.Fragment>
-          <div>
-            <p>Pinned Notes</p>
-            {getPinnedNotes(allNotes)}
-          </div>
-          <div>
-            <p>Other Notes</p>
-            {getOtherNotes(allNotes)}
-          </div>
-        </React.Fragment>
+        <>
+          <div>{getPinnedNotes(allNotes, openNoteModal)}</div>
+          <div>{getOtherNotes(allNotes, openNoteModal)}</div>
+        </>
       )}
       <NoteModal />
     </div>
@@ -43,39 +43,46 @@ const LandingPage = ({ history }) => {
 
 export default LandingPage;
 
-function getPinnedNotes(allNotes) {
+function getPinnedNotes(allNotes, openNoteModal) {
   if (Array.isArray(allNotes)) {
     const pinnedNotes = allNotes.filter((note) => note.isPinned === true);
-    const list = pinnedNotes.map((note) => <List key={note.id} note={note} />);
-    return (
-      <div>
-        <span>Pinned</span>
-        {list}
-      </div>
-    );
+    const list = pinnedNotes.map((note) => (
+      <List key={note.id} note={note} openNoteModal={openNoteModal} />
+    ));
+    if (list.length)
+      return (
+        <div>
+          <span>Pinned</span>
+          {list}
+        </div>
+      );
   }
 }
 
-function getOtherNotes(allNotes) {
+function getOtherNotes(allNotes, openNoteModal) {
   if (Array.isArray(allNotes)) {
+    const pinnedNotes = allNotes.filter((note) => note.isPinned === true);
     const otherNotes = allNotes.filter(
       (note) => note.isPinned !== true && note.isArchived !== true
     );
-    const list = otherNotes.map((note) => <List key={note.id} note={note} />);
-    return (
-      <div>
-        <span>Other</span>
-        {list}
-      </div>
-    );
+    const list = otherNotes.map((note) => (
+      <List key={note.id} note={note} openNoteModal={openNoteModal} />
+    ));
+    if (list.length)
+      return (
+        <div>
+          <span>{pinnedNotes.length ? "Other" : "Note"}</span>
+          {list}
+        </div>
+      );
   }
 }
 
-function getArchivedNotes(allNotes) {
+function getArchivedNotes(allNotes, openNoteModal) {
   if (Array.isArray(allNotes)) {
     const archivedNotes = allNotes.filter((note) => note.isArchived === true);
     const list = archivedNotes.map((note) => (
-      <List key={note.id} note={note} />
+      <List key={note.id} note={note} openNoteModal={openNoteModal} />
     ));
     return (
       <div>

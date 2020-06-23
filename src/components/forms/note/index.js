@@ -6,7 +6,9 @@ function init(initialNote) {
     return {
       noteData: {
         title: "",
-        content: ""
+        content: "",
+        isPinned: false,
+        isArchived: false
       }
     };
   }
@@ -42,6 +44,7 @@ const NoteForm = ({ initialNote, saveNote }) => {
 
   return (
     <div>
+      {console.log(state)}
       <div>
         <div>
           <div>

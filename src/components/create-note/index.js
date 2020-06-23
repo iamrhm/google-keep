@@ -3,13 +3,14 @@ import { useDispatch } from "react-redux";
 
 import NoteForm from "../forms/note";
 
-import { addNewNote } from "../../redux/actions";
+import { submitNewNote } from "../../redux/actions";
 
 const CreateNote = () => {
   const dispatch = useDispatch();
   const [showForm, toggleForm] = React.useState(false);
   function saveNote(newPost) {
-    dispatch(addNewNote(newPost));
+    toggleForm(!showForm);
+    dispatch(submitNewNote(newPost));
   }
   function handleClick() {
     toggleForm(!showForm);

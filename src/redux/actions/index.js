@@ -34,13 +34,6 @@ export function submitNewNote(note) {
   };
 }
 
-export function addNewNote(note) {
-  return {
-    type: actionTypes.ADD_NEW_NOTE,
-    payload: { note }
-  };
-}
-
 export function updateNote(note) {
   return {
     type: actionTypes.UPDATE_NOTE,

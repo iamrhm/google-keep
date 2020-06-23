@@ -1,7 +1,12 @@
 import React from "react";
 
-const List = () => {
-  return <div>Hi I am List</div>;
+const List = ({ note, openNoteModal = () => {} }) => {
+  return (
+    <div onClick={() => openNoteModal(note.id)}>
+      <p>{note.title}</p>
+      <p>{note.content}</p>
+    </div>
+  );
 };
 
 export default List;

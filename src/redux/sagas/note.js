@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
 import * as actionTypes from "../actionTypes";
-import { populateAllNotes, populateNoteInfo, addNewNote } from "../actions";
+import { populateAllNotes, populateNoteInfo } from "../actions";
 import {
   pullAllNotes,
   pullNoteById,
@@ -12,7 +12,7 @@ import {
 function* getAllNotes() {
   try {
     const allNotes = yield call(pullAllNotes);
-    yield put(populateAllNotes({ notes: allNotes }));
+    yield put(populateAllNotes(allNotes));
   } catch (err) {
     throw new Error(err);
   }
@@ -29,8 +29,9 @@ function* getNoteById(noteId) {
 
 function* postNewNote(action) {
   try {
-    const newNote = yield call(saveNewNote, action.payload.note);
-    yield put(addNewNote(newNote));
+    yield call(saveNewNote, action.payload.note);
+    const allNotes = yield call(pullAllNotes);
+    yield put(populateAllNotes(allNotes));
   } catch (err) {
     throw new Error(err);
   }
@@ -40,7 +41,7 @@ function* putNote(action) {
   try {
     yield call(updateNote, action.payload.note);
     const allNotes = yield call(pullAllNotes);
-    yield put(populateAllNotes({ notes: allNotes }));
+    yield put(populateAllNotes(allNotes));
   } catch (err) {
     throw new Error(err);
   }
