@@ -8,29 +8,31 @@ const addIdToNewNote = (newNote, keyId) => {
 
 export const pullAllNotes = async () => {
   let allNotes = storeHelper.getLocalStorage(KEY);
-  return allNotes ? allNotes : [];
+  return Array.isArray(allNotes) ? allNotes : [];
 };
 
 export const pullNoteById = async (noteId) => {
   let allNotes = await pullAllNotes();
-  if (Array.isArray(allNotes))
-    return allNotes.filter((note) => note.id === noteId);
-  else return ;
+  if (Array.isArray(allNotes)) {
+    return allNotes.find((note) => Number(note.id) === Number(noteId));
+  } else return;
 };
 
 export const saveNewNote = async (newNote) => {
   let allNotes = await pullAllNotes();
-  if (allNotes === null) allNotes = [];
+  if (!Array.isArray(allNotes)) allNotes = [];
   addIdToNewNote(newNote, allNotes.length);
   allNotes.push(newNote);
   storeHelper.setLocalStorage(KEY, allNotes);
   return allNotes;
 };
 
-export const updateNote = async (updatedNote) => {
+export const modifyNote = async (updatedNote) => {
   let allNotes = await pullAllNotes();
-  let index = allNotes.findIndex((note) => note.id === updatedNote.id);
-  allNotes[index] = updateNote;
+  let index = allNotes.findIndex(
+    (note) => Number(note.id) === Number(updatedNote.id)
+  );
+  allNotes[index] = updatedNote;
   storeHelper.setLocalStorage(KEY, allNotes);
   return allNotes;
 };

@@ -18,7 +18,7 @@ const CreateNote = () => {
   return (
     <div>
       {showForm ? (
-        <NoteForm initialNote={null} saveNote={saveNote} />
+        <NoteForm initialNote={null} handleSubmit={saveNote} />
       ) : (
         <div onClick={(e) => handleClick()}>Add Forms</div>
       )}

@@ -1,14 +1,16 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import List from "../../components/list";
-import NoteModal from "../note-modal";
 import CreateNote from "../../components/create-note";
 
 import { fetchAllNotes } from "../../redux/actions";
 
-const LandingPage = ({ history }) => {
+const LandingPage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { allNotes, displayPanelStatus } = useSelector((state) => state);
   const fetchNotes = React.useCallback(() => dispatch(fetchAllNotes()), [
     dispatch
@@ -18,7 +20,6 @@ const LandingPage = ({ history }) => {
   }, [fetchNotes]);
 
   function openNoteModal(noteId) {
-    console.log("noteId", noteId);
     history.push({
       hash: `/note/${noteId}`
     });
@@ -36,7 +37,6 @@ const LandingPage = ({ history }) => {
           <div>{getOtherNotes(allNotes, openNoteModal)}</div>
         </>
       )}
-      <NoteModal />
     </div>
   );
 };
@@ -45,7 +45,9 @@ export default LandingPage;
 
 function getPinnedNotes(allNotes, openNoteModal) {
   if (Array.isArray(allNotes)) {
-    const pinnedNotes = allNotes.filter((note) => note.isPinned === true);
+    const pinnedNotes = allNotes.filter(
+      (note) => note.isPinned === true && note.isArchived !== true
+    );
     const list = pinnedNotes.map((note) => (
       <List key={note.id} note={note} openNoteModal={openNoteModal} />
     ));

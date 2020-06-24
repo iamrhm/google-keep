@@ -6,7 +6,7 @@ import {
   pullAllNotes,
   pullNoteById,
   saveNewNote,
-  updateNote
+  modifyNote
 } from "../../apis";
 
 function* getAllNotes() {
@@ -18,10 +18,10 @@ function* getAllNotes() {
   }
 }
 
-function* getNoteById(noteId) {
+function* getNoteById(action) {
   try {
-    const note = yield call(pullNoteById, noteId);
-    yield put(populateNoteInfo({ note: note }));
+    const note = yield call(pullNoteById, action.payload.noteId);
+    yield put(populateNoteInfo(note));
   } catch (err) {
     throw new Error(err);
   }
@@ -39,7 +39,7 @@ function* postNewNote(action) {
 
 function* putNote(action) {
   try {
-    yield call(updateNote, action.payload.note);
+    yield call(modifyNote, action.payload.note);
     const allNotes = yield call(pullAllNotes);
     yield put(populateAllNotes(allNotes));
   } catch (err) {

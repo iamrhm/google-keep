@@ -4,16 +4,12 @@ import Header from "./components/header";
 import Sidebar from "./components/sidebar";
 
 import { Provider } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
-
-import { history, store } from "./redux/store";
+import { store } from "./redux/store";
 
 function App() {
   return (
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Routes />
-      </ConnectedRouter>
+      <Routes />
     </Provider>
   );
 }

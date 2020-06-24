@@ -11,7 +11,7 @@ export const initialCurrentNoteState = {
 export default (state = initialCurrentNoteState, action) => {
   switch (action.type) {
     case actionTypes.POPULATE_NOTE_INFO:
-      return { ...state, currentNote: action.payload.note };
+      return { ...state, ...action.payload.note };
     default:
       return state;
   }

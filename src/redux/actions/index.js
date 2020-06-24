@@ -16,7 +16,7 @@ export function populateAllNotes(notes) {
 export function getNoteDetailById(noteId) {
   return {
     type: actionTypes.GET_NOTE_INFO,
-    payload: noteId
+    payload: { noteId }
   };
 }
 

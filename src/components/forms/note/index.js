@@ -23,8 +23,16 @@ function reducer(state, { type, payload }) {
   }
 }
 
-const NoteForm = ({ initialNote, saveNote }) => {
+const NoteForm = ({ initialNote, handleSubmit }) => {
   const [state, updateState] = React.useReducer(reducer, initialNote, init);
+
+  React.useEffect(() => {
+    if (initialNote !== null)
+      updateState({
+        type: "UPDATE_NOTE_DATA",
+        payload: { noteData: initialNote }
+      });
+  }, [initialNote]);
 
   function handleInputChange(e) {
     const newNoteData = state.noteData;
@@ -39,12 +47,11 @@ const NoteForm = ({ initialNote, saveNote }) => {
 
   const submitData = () => {
     const newNoteData = { ...state.noteData };
-    return saveNote(newNoteData);
+    return handleSubmit(newNoteData);
   };
 
   return (
     <div>
-      {console.log(state)}
       <div>
         <div>
           <div>
@@ -97,4 +104,4 @@ const NoteForm = ({ initialNote, saveNote }) => {
   );
 };
 
-export default React.memo(NoteForm);
+export default NoteForm;

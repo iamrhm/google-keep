@@ -1,18 +1,17 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import NoteModal from "../note-modal";
 import LandingPage from "../landing";
 
-const Wrapper = () => {
-  const { router } = useSelector((state) => state);
-
-  const openNoteModal = React.useCallback(() => {
-    const hashArray = router.location.hash.split("/");
+const WrapperContainer = () => {
+  const history = useHistory();
+  const openNoteModal = () => {
+    const hashArray = history.location.hash.split("/");
     const noteId = hashArray[hashArray.length - 1];
     if (noteId) return <NoteModal noteId={noteId} />;
     else return null;
-  }, [router]);
+  };
 
   return (
     <div>
@@ -22,4 +21,4 @@ const Wrapper = () => {
   );
 };
 
-export default Wrapper;
+export default WrapperContainer;

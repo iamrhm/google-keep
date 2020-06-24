@@ -1,37 +1,38 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import { getNoteDetailById, updateNote } from "../../redux/actions";
 import NoteForm from "../../components/forms/note";
 
-const NoteModal = () => {
+const NoteModal = ({ noteId }) => {
   const dispatch = useDispatch();
-  const { router, currentNote } = useSelector((state) => state);
-  const hashArray = router.location.hash.split("/");
-  const noteId = hashArray[hashArray.length - 1];
+  const history = useHistory();
+  const { currentNote } = useSelector((state) => state);
 
   const fetchNote = React.useCallback(() => {
     if (noteId) dispatch(getNoteDetailById(noteId));
   }, [dispatch, noteId]);
 
-  function updateNoteData(newPost) {
-    dispatch(updateNote(newPost));
+  function updateNoteData(newNoteData) {
+    dispatch(updateNote(newNoteData));
+    history.goBack();
   }
 
   React.useEffect(() => {
     fetchNote();
-  }, [fetchNote, dispatch]);
+  }, [fetchNote, noteId]);
 
-  return (
-    <div>
-      {console.log(currentNote, noteId)}
-      {currentNote && noteId ? (
+  const showNoteForm = () => {
+    if (currentNote && noteId)
+      return (
         <div>
-          <NoteForm initialNote={currentNote} saveNote={updateNoteData} />
+          <NoteForm initialNote={currentNote} handleSubmit={updateNoteData} />
         </div>
-      ) : null}
-    </div>
-  );
+      );
+  };
+  return <div>{showNoteForm()}</div>;
 };
 
 export default NoteModal;
