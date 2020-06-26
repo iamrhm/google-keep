@@ -5,6 +5,8 @@ import NoteForm from "../forms/note";
 
 import { submitNewNote } from "../../redux/actions";
 
+import { Container, TakeNote } from "./style";
+
 const CreateNote = () => {
   const dispatch = useDispatch();
   const [showForm, toggleForm] = React.useState(false);
@@ -16,13 +18,13 @@ const CreateNote = () => {
     toggleForm(!showForm);
   }
   return (
-    <div>
+    <Container>
       {showForm ? (
-        <NoteForm initialNote={null} handleSubmit={saveNote} />
+        <NoteForm initialNote={null} handleSubmit={saveNote} toggleForm={handleClick} />
       ) : (
-        <div onClick={(e) => handleClick()}>Add Forms</div>
+        <TakeNote onClick={(e) => handleClick()}>Take a note...</TakeNote>
       )}
-    </div>
+    </Container>
   );
 };
 

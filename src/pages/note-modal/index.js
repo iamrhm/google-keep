@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getNoteDetailById, updateNote } from "../../redux/actions";
 import NoteForm from "../../components/forms/note";
 
+import { NotFormContainer } from "./style";
+
 const NoteModal = ({ noteId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -24,15 +26,21 @@ const NoteModal = ({ noteId }) => {
     fetchNote();
   }, [fetchNote, noteId]);
 
+  function handleClick() {
+    history.goBack();
+  }
+
   const showNoteForm = () => {
     if (currentNote && noteId)
       return (
-        <div>
-          <NoteForm initialNote={currentNote} handleSubmit={updateNoteData} />
-        </div>
+        <NoteForm
+          initialNote={currentNote}
+          handleSubmit={updateNoteData}
+          toggleForm={handleClick}
+        />
       );
   };
-  return <div>{showNoteForm()}</div>;
+  return <NotFormContainer>{showNoteForm()}</NotFormContainer>;
 };
 
 export default NoteModal;

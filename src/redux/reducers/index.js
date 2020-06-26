@@ -4,19 +4,19 @@ import AllNoteReducer, { initialAllNoteState } from "./allNotes";
 
 import DisplayPanelReducer, {
   initialDisplayPanelState
-} from "../reducers/display-panel";
+} from "../reducers/displayPanel";
 
 export const initialState = {
   allNotes: initialAllNoteState,
   currentNote: initialCurrentNoteState,
-  displayPanelStatus: initialDisplayPanelState
+  displayPanelStatus: initialDisplayPanelState,
 };
 
 const reducer = () =>
   combineReducers({
     allNotes: AllNoteReducer,
     currentNote: CurrentNoteReducer,
-    displayPanelStatus: DisplayPanelReducer
+    displayPanelStatus: DisplayPanelReducer,
   });
 
 export default reducer;

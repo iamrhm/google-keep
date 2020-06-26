@@ -1,4 +1,19 @@
 import React from "react";
+import {
+  Container,
+  Footer,
+  CloseButton,
+  Header,
+  IconContainer,
+  ActivePinIcon,
+  PinIcon,
+  ActiveArchiveIcon,
+  ArchiveIcon
+} from "./style";
+
+import { useOutsideClick } from "../../../hooks/useOutsideClick";
+
+import TextArea from "../../text-area";
 
 function init(initialNote) {
   if (initialNote !== null) return { noteData: initialNote };
@@ -23,7 +38,7 @@ function reducer(state, { type, payload }) {
   }
 }
 
-const NoteForm = ({ initialNote, handleSubmit }) => {
+const NoteForm = ({ initialNote, handleSubmit, toggleForm }) => {
   const [state, updateState] = React.useReducer(reducer, initialNote, init);
 
   React.useEffect(() => {
@@ -47,60 +62,74 @@ const NoteForm = ({ initialNote, handleSubmit }) => {
 
   const submitData = () => {
     const newNoteData = { ...state.noteData };
-    return handleSubmit(newNoteData);
+    if (newNoteData.title !== "" || newNoteData.content !== "")
+      return handleSubmit(newNoteData);
+    else return toggleForm();
   };
 
+  const togglePin = (e) => {
+    e.stopPropagation();
+    let updatedNote = { ...state.noteData };
+    updatedNote.isPinned = !updatedNote.isPinned;
+    updateState({
+      type: "UPDATE_NOTE_DATA",
+      payload: { noteData: updatedNote }
+    });
+  };
+
+  const toggleArchive = (e) => {
+    e.stopPropagation();
+    let updatedNote = { ...state.note };
+    updatedNote.isArchived = !updatedNote.isArchived;
+    updateState({
+      type: "UPDATE_NOTE_DATA",
+      payload: { noteData: updatedNote }
+    });
+  };
+
+  const wrapperRef = React.useRef(null);
+  useOutsideClick(wrapperRef, submitData);
+
   return (
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <p>Title</p>
-              <input
-                name="title"
-                required={true}
-                type="text"
-                placeholder="Enter Title"
-                value={state.noteData.title}
-                onChange={(e) => {
-                  e.preventDefault();
-                  handleInputChange(e);
-                }}
-              />
-            </div>
-          </div>
-          <div>
-            <div>
-              <p>Content</p>
-              <input
-                name="content"
-                required={true}
-                type="text"
-                placeholder="Write Your Note"
-                value={state.noteData.content}
-                onChange={(e) => {
-                  e.preventDefault();
-                  handleInputChange(e);
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              submitData();
-            }}
-          >
-            Submit
-          </button>
-        </div>
-      </div>
-    </div>
+    <Container ref={wrapperRef}>
+      <Header>
+        <IconContainer>
+          {state.noteData.isPinned ? (
+            <ActivePinIcon onClick={(e) => togglePin(e)} />
+          ) : (
+            <PinIcon onClick={(e) => togglePin(e)} />
+          )}
+        </IconContainer>
+        <TextArea
+          propsRow={2}
+          propsName="title"
+          propsPlaceholder="Title"
+          propsValue={state.noteData.title}
+          handleInputChange={handleInputChange}
+        />
+      </Header>
+      <TextArea
+        propsName="content"
+        propsPlaceholder="Take a note..."
+        propsValue={state.noteData.content}
+        handleInputChange={handleInputChange}
+      />
+      <Footer>
+        {state.noteData.isArchived ? (
+          <ActiveArchiveIcon onClick={(e) => toggleArchive(e)} />
+        ) : (
+          <ArchiveIcon onClick={(e) => toggleArchive(e)} />
+        )}
+        <CloseButton
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleForm();
+          }}
+        >
+          Close
+        </CloseButton>
+      </Footer>
+    </Container>
   );
 };
 

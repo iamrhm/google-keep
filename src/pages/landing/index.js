@@ -1,12 +1,13 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import List from "../../components/list";
 import CreateNote from "../../components/create-note";
 
 import { fetchAllNotes } from "../../redux/actions";
+
+import { ListContainer, ListType, ListWrapper, Container } from "./style";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -25,19 +26,21 @@ const LandingPage = () => {
     });
   }
   return (
-    <div>
+    <Container>
       <div>
         <CreateNote />
       </div>
-      {displayPanelStatus.showArchived ? (
-        <div>{getArchivedNotes(allNotes, openNoteModal)}</div>
-      ) : (
-        <>
-          <div>{getPinnedNotes(allNotes, openNoteModal)}</div>
-          <div>{getOtherNotes(allNotes, openNoteModal)}</div>
-        </>
-      )}
-    </div>
+      <ListWrapper>
+        {displayPanelStatus.showArchived ? (
+          getArchivedNotes(allNotes, openNoteModal)
+        ) : (
+          <>
+            {getPinnedNotes(allNotes, openNoteModal)}
+            {getOtherNotes(allNotes, openNoteModal)}
+          </>
+        )}
+      </ListWrapper>
+    </Container>
   );
 };
 
@@ -53,10 +56,10 @@ function getPinnedNotes(allNotes, openNoteModal) {
     ));
     if (list.length)
       return (
-        <div>
-          <span>Pinned</span>
-          {list}
-        </div>
+        <>
+          <ListType>Pinned</ListType>
+          <ListContainer>{list}</ListContainer>
+        </>
       );
   }
 }
@@ -72,10 +75,10 @@ function getOtherNotes(allNotes, openNoteModal) {
     ));
     if (list.length)
       return (
-        <div>
-          <span>{pinnedNotes.length ? "Other" : "Note"}</span>
-          {list}
-        </div>
+        <>
+          <ListType>{pinnedNotes.length ? "Other" : "Note"}</ListType>
+          <ListContainer>{list}</ListContainer>
+        </>
       );
   }
 }
@@ -87,10 +90,10 @@ function getArchivedNotes(allNotes, openNoteModal) {
       <List key={note.id} note={note} openNoteModal={openNoteModal} />
     ));
     return (
-      <div>
-        <span>Archived</span>
-        {list}
-      </div>
+      <>
+        <ListType>Archived</ListType>
+        <ListContainer>{list}</ListContainer>
+      </>
     );
   }
 }
