@@ -16,7 +16,6 @@ const Search = ({ queryParams }) => {
   React.useEffect(() => {
     fetchNotes();
   }, [fetchNotes]);
-
   return <div>{getFilteredNote(queryParams, allNotes)}</div>;
 };
 

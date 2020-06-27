@@ -1,51 +1,88 @@
 import React from "react";
-
-import TextArea from "../text-area";
-
-import { Container } from "./style";
 import { withRouter } from "react-router-dom";
+
+import {
+  Container,
+  SearchBoxWrapper,
+  SearchInput,
+  IconWrapper,
+  SearchIcon,
+  CloseIcon
+} from "./style";
 
 import debounce from "../../helpers/debounce";
 import getSearchQuery from "../../helpers/getSearchQuery";
 
 const Header = ({ history }) => {
-  const searchQueryFromHistory = getSearchQuery(history);
-  const [searchQuery, updateSearchQuery] = React.useState(
-    searchQueryFromHistory
-  );
+  const [searchQuery, updateSearchQuery] = React.useState("");
+  const [isShown, setShown] = React.useState(false);
 
-  const handleSearchQueryChange = () => {
-    history.push({
-      hash: `/search/?text=${searchQuery}`
-    });
+  const handleSearchQueryChange = (query) => {
+    if (query.length > 2)
+      history.push({
+        hash: `/search/?text=${query}`
+      });
+    else if (query.length <= 0)
+      history.push({
+        hash: `/search`
+      });
   };
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     let query = "";
     if (e) {
       query = e.target.value;
     }
     updateSearchQuery(query);
+    debounce(() => handleSearchQueryChange(query), 1000);
+  };
+
+  const handleClick = () => {
+    setShown(true);
+    if (searchQuery.length <= 0)
+      history.push({
+        hash: `/search`
+      });
+    else
+      history.push({
+        hash: `/search/?text=${searchQuery}`
+      });
+  };
+
+  const handleClose = () => {
+    updateSearchQuery("");
+    setShown(false);
+    history.push("/");
   };
 
   React.useEffect(() => {
-    if (searchQuery !== "") debounce(handleSearchQueryChange, 1000);
-    else {
-      if (searchQueryFromHistory !== "")
-        debounce(handleSearchQueryChange, 1000);
+    const searchQueryFromHistory = getSearchQuery(history);
+    if (searchQueryFromHistory && searchQueryFromHistory !== "") {
+      updateSearchQuery(searchQueryFromHistory);
+      debounce(() => handleSearchQueryChange(searchQueryFromHistory), 1000);
     }
-  });
+  }, []);
 
   return (
     <Container>
-      <TextArea
-        propsRow={2}
-        propsName="title"
-        propsPlaceholder="Title"
-        propsValue={searchQuery || ""}
-        handleInputChange={(e) => handleChange(e)}
-        onClick={(e) => handleChange(e)}
-      />
+      <SearchBoxWrapper isShown={isShown}>
+        <IconWrapper>
+          <SearchIcon onClick={(e) => handleClick(e)} />
+        </IconWrapper>
+        <SearchInput
+          name="search"
+          value={searchQuery}
+          onChange={(e) => handleInputChange(e)}
+          onClick={(e) => handleClick(e)}
+        />
+        <IconWrapper isShown={isShown}>
+          <CloseIcon
+            onClick={(e) => {
+              handleClose();
+            }}
+          />
+        </IconWrapper>
+      </SearchBoxWrapper>
     </Container>
   );
 };
