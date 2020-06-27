@@ -7,7 +7,7 @@ import CreateNote from "../../components/create-note";
 
 import { fetchAllNotes } from "../../redux/actions";
 
-import { ListContainer, ListType, ListWrapper, Container } from "./style";
+import { ListContainer, ListType, ListWrapper, Container,CreateNoteContainer } from "./style";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -27,9 +27,9 @@ const LandingPage = () => {
   }
   return (
     <Container>
-      <div>
+      <CreateNoteContainer>
         <CreateNote />
-      </div>
+      </CreateNoteContainer>
       <ListWrapper>
         {displayPanelStatus.showArchived ? (
           getArchivedNotes(allNotes, openNoteModal)

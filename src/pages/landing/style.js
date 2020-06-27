@@ -18,10 +18,21 @@ export const ListContainer = styled.div`
 `;
 
 export const ListWrapper = styled.div`
+  width: 100%;
   margin-top: 15px;
 `;
 
 export const Container = styled.div`
   width: 80%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  margin-top: 24px;
+  margin-left: 24px;
+  overflow-y: auto;
+`;
+
+export const CreateNoteContainer = styled.div`
+  width: 100%;
 `;

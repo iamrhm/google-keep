@@ -11,6 +11,7 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     outline: none;
+    overflow: hidden;
   }
 
   input[type="text"], input[type="password"], textarea, select {

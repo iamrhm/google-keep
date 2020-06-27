@@ -28,10 +28,10 @@ const WrapperContainer = () => {
   };
 
   return (
-    <div>
+    <>
       {showSearch()}
       {openNoteModal()}
-    </div>
+    </>
   );
 };
 

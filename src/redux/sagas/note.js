@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
 import * as actionTypes from "../actionTypes";
-import { populateAllNotes, populateNoteInfo, populateNewNoteFormStatus, populateUpdateNoteFormStatus } from "../actions";
+import { populateAllNotes, populateNoteInfo } from "../actions";
 import {
   pullAllNotes,
   pullNoteById,

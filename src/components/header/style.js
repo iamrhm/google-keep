@@ -5,7 +5,7 @@ import { CloseOutline as Close } from "@styled-icons/evaicons-outline/CloseOutli
 import styleConfig from "../../style";
 
 export const Container = styled.div`
-  position: relative;
+  position: fixed;
   height: 84px;
   width: 100%;
   left: 0;
