@@ -18,7 +18,6 @@ export const InputTextArea = styled.textarea`
   line-height: 24px;
 
   overflow: auto;
-  height: auto;
 
   &:focus {
     outline: none;

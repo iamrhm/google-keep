@@ -41,7 +41,7 @@ const List = ({ note, openNoteModal = () => {} }) => {
     >
       <Container onClick={() => openNoteModal(note.id)}>
         <Header>
-          <IconContainer isHovered={isHovered}>
+          <IconContainer isHovered={isHovered || note.isPinned}>
             {note.isPinned ? (
               <ActivePinIcon onClick={(e) => togglePin(e)} />
             ) : (
@@ -52,7 +52,7 @@ const List = ({ note, openNoteModal = () => {} }) => {
         </Header>
         <ContentText>{note.content}</ContentText>
       </Container>
-      <Footer isHovered={isHovered}>
+      <Footer isHovered={isHovered || note.isArchived}>
         {note.isArchived ? (
           <ActiveArchiveIcon onClick={(e) => toggleArchive(e)} />
         ) : (

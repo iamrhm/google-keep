@@ -2,7 +2,6 @@ import React from "react";
 import { InputTextArea } from "./style";
 const initialState = {
   rows: 5,
-  minRows: 5
 };
 
 function reducer(state, { type, payload }) {
@@ -28,8 +27,6 @@ const ResizableTextarea = ({
 
   const handleChange = (event) => {
     const textareaLineHeight = 24;
-    const { minRows } = state;
-    event.target.rows = minRows;
     let currentRows = ~~(event.target.scrollHeight / textareaLineHeight);
 
     updateState({
@@ -45,12 +42,9 @@ const ResizableTextarea = ({
 
   React.useLayoutEffect(() => {
     const textareaLineHeight = 24;
-    const { minRows } = state;
-    inputTextAreaRef.current.rows = minRows;
     let currentRows = ~~(
       inputTextAreaRef.current.scrollHeight / textareaLineHeight
     );
-
     updateState({
       type: "UPDATE_TEXTAREA",
       payload: {

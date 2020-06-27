@@ -22,7 +22,7 @@ export const Wrapper = styled.div`
   align-self: flex-start;
   box-shadow: ${(props) =>
     !props.isHovered
-      ? "0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048)"
+      ? "0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 4.7px 2.3px rgba(0, 0, 0, 0.048)"
       : "0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06)"};
   cursor: default;
 `;
