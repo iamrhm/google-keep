@@ -8,7 +8,7 @@ export const InputTextArea = styled.textarea`
   width: 100%;
   background: ${styleConfig.backgroundColor};
   height: auto;
-  color: #80868b;
+  color: ${styleConfig.textColor};
   border-radius: 3px;
   resize: none;
   letter-spacing: 0.00625em;
@@ -16,7 +16,7 @@ export const InputTextArea = styled.textarea`
   font-weight: 500;
   line-height: 1.5rem;
   line-height: 24px;
-
+  font-family: "Roboto", sans-serif;
   overflow: auto;
 
   &:focus {

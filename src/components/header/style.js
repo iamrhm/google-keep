@@ -36,7 +36,7 @@ export const SearchInput = styled.input`
   display: block;
   background: ${styleConfig.backgroundColor};
   height: auto;
-  color: #80868b;
+  color: ${styleConfig.textColor};
   border-radius: 3px;
   resize: none;
   letter-spacing: 0.00625em;

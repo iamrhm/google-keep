@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import styleConfig from "../../style-configs";
 
 export const Container = styled.div`
   position: relative;
@@ -24,7 +25,7 @@ export const AnimateIcon = styled.div`
 export const MenuText = styled.span`
   padding: 0 25px;
   display: ${(props) => (props.isActive ? "flex" : "none")};
-  color: #202124;
+  color: ${styleConfig.textColor};
   letter-spacing: 0.01785714em;
   font-size: 0.875rem;
   font-weight: 500;
