@@ -46,8 +46,9 @@ const List = ({ note, openNoteModal = () => {} }) => {
       isHovered={isHovered}
       onMouseEnter={() => setIiHovered(true)}
       onMouseLeave={() => setIiHovered(false)}
+      onClick={() => openNoteModal(note.id)}
     >
-      <Container onClick={() => openNoteModal(note.id)}>
+      <Container>
         <Header>
           <IconContainer isHovered={isHovered || note.isPinned}>
             {note.isPinned ? (

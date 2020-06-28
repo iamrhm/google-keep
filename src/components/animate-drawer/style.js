@@ -4,7 +4,6 @@ export const Container = styled.div`
   position: relative;
   transform-origin: 48px 0;
   width: ${(props) => (props.isActive ? "250px" : "0px")};
-  height: 100%;
   display: flex;
   flex-direction: column;
 `;

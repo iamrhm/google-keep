@@ -19,18 +19,33 @@ export const ListContainer = styled.div`
 
 export const ListWrapper = styled.div`
   width: 100%;
-  margin-top: 15px;
+  margin: 15px 0 84px 0;
+  position: relative;
 `;
 
 export const Container = styled.div`
-  width: 80%;
-  margin: auto;
+  width: 100%;
+  margin: 24px;
+  margin-bottom: 0px;
+  min-height: 590px;
+  position: relative;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  margin-top: 24px;
-  margin-left: 24px;
+  overflow-x: hidden;
   overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 0.1px;
+    height: 0.1px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5);
+  }
 `;
 
 export const CreateNoteContainer = styled.div`

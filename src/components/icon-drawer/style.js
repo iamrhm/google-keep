@@ -6,7 +6,6 @@ export const Container = styled.div`
   position: fixed;
   left: 0;
   width: 80px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

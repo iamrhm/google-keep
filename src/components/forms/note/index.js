@@ -53,7 +53,7 @@ const NoteForm = ({ initialNote, handleSubmit, toggleForm }) => {
     const newNoteData = state.noteData;
     const name = e.target.name;
     const value = e.target.value;
-    newNoteData[name] = value.trim();
+    newNoteData[name] = value;
     updateState({
       type: "UPDATE_NOTE_DATA",
       payload: { noteData: newNoteData }

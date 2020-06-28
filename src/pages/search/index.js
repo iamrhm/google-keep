@@ -6,6 +6,8 @@ import { fetchAllNotes } from "../../redux/actions";
 import noteFilter from "./note-filter";
 import ListContainer from "../../components/list-container";
 
+import { TextInfo, TextContainer } from "./style";
+
 const Search = ({ queryParams }) => {
   const dispatch = useDispatch();
   const { allNotes } = useSelector((state) => state);
@@ -16,14 +18,19 @@ const Search = ({ queryParams }) => {
   React.useEffect(() => {
     fetchNotes();
   }, [fetchNotes]);
-  return <div>{getFilteredNote(queryParams, allNotes)}</div>;
+  return <>{getFilteredNote(queryParams, allNotes)}</>;
 };
 
 function getFilteredNote(queryParams, allNotes) {
   if (queryParams) {
     const notes = noteFilter(queryParams, allNotes);
     if (notes.length) return <ListContainer notes={notes} />;
-    else return <>No Data To Display</>;
+    else
+      return (
+        <TextContainer>
+          <TextInfo>No Data To Display</TextInfo>
+        </TextContainer>
+      );
   }
 }
 

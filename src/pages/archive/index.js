@@ -5,6 +5,8 @@ import { fetchAllNotes } from "../../redux/actions";
 
 import ListContainer from "../../components/list-container";
 
+import { TextInfo, TextContainer } from "./style";
+
 const Archive = () => {
   console.log("iam loading");
   const dispatch = useDispatch();
@@ -23,7 +25,12 @@ function getArchivedNotes(allNotes) {
   if (Array.isArray(allNotes)) {
     const archivedNotes = allNotes.filter((note) => note.isArchived === true);
     if (archivedNotes.length) return <ListContainer notes={archivedNotes} />;
-    else return <>No Data To Display</>;
+    else
+      return (
+        <TextContainer>
+          <TextInfo>No Data To Display</TextInfo>
+        </TextContainer>
+      );
   }
 }
 

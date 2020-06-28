@@ -70,6 +70,16 @@ const Sidebar = () => {
     }
   }, []);
 
+  React.useLayoutEffect(() => {
+    let currentLocation = history.location.hash.split("/")[1];
+    if (currentLocation === undefined && !state.noteIcon.isActive) {
+      let newState = { ...state };
+      newState.noteIcon.isActive = true;
+      newState.archiveIcon.isActive = false;
+      dispatch({ type: "UPDATE_STATE", payload: newState });
+    }
+  });
+
   return (
     <>
       <IconContainer>
