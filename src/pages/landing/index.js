@@ -83,17 +83,3 @@ function getOtherNotes(allNotes, openNoteModal) {
   }
 }
 
-function getArchivedNotes(allNotes, openNoteModal) {
-  if (Array.isArray(allNotes)) {
-    const archivedNotes = allNotes.filter((note) => note.isArchived === true);
-    const list = archivedNotes.map((note) => (
-      <List key={note.id} note={note} openNoteModal={openNoteModal} />
-    ));
-    return (
-      <>
-        <ListType>Archived</ListType>
-        <ListContainer>{list}</ListContainer>
-      </>
-    );
-  }
-}
