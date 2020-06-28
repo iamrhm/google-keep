@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { updateNote } from "../../redux/actions";
+import { updateNote, deleteNoteById } from "../../redux/actions";
 
 import {
   Container,
@@ -13,7 +13,9 @@ import {
   ActivePinIcon,
   Text,
   IconContainer,
-  ContentText
+  ContentText,
+  DeleteIcon,
+  ActionPanel
 } from "./style";
 
 const List = ({ note, openNoteModal = () => {} }) => {
@@ -33,6 +35,12 @@ const List = ({ note, openNoteModal = () => {} }) => {
     updatedNote.isPinned = !updatedNote.isPinned;
     dispatch(updateNote(updatedNote));
   };
+
+  const deleteNote = (e, noteId) => {
+    e.stopPropagation();
+    dispatch(deleteNoteById(noteId));
+  };
+
   return (
     <Wrapper
       isHovered={isHovered}
@@ -52,12 +60,15 @@ const List = ({ note, openNoteModal = () => {} }) => {
         </Header>
         <ContentText>{note.content}</ContentText>
       </Container>
-      <Footer isHovered={isHovered || note.isArchived}>
-        {note.isArchived ? (
-          <ActiveArchiveIcon onClick={(e) => toggleArchive(e)} />
-        ) : (
-          <ArchiveIcon onClick={(e) => toggleArchive(e)} />
-        )}
+      <Footer>
+        <ActionPanel isHovered={isHovered || note.isArchived}>
+          {note.isArchived ? (
+            <ActiveArchiveIcon onClick={(e) => toggleArchive(e)} />
+          ) : (
+            <ArchiveIcon onClick={(e) => toggleArchive(e)} />
+          )}
+          <DeleteIcon onClick={(e) => deleteNote(e, note.id)} />
+        </ActionPanel>
       </Footer>
     </Wrapper>
   );

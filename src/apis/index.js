@@ -36,3 +36,10 @@ export const modifyNote = async (updatedNote) => {
   storeHelper.setLocalStorage(KEY, allNotes);
   return allNotes;
 };
+
+export const deleteNote = async (noteId) => {
+  let allNotes = await pullAllNotes();
+  let newNotes = allNotes.filter((note) => Number(note.id) !== Number(noteId));
+  storeHelper.setLocalStorage(KEY, newNotes);
+  return allNotes;
+};

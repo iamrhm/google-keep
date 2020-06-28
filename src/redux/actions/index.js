@@ -41,16 +41,9 @@ export function updateNote(note) {
   };
 }
 
-export function updateDisplayPanel(displayPanelStatus) {
+export function deleteNoteById(noteId) {
   return {
-    type: actionTypes.UPDATE_DISPLAY_PANEL,
-    payload: { displayPanelStatus }
-  };
-}
-
-export function populateDisplayPanel(displayPanelStatus) {
-  return {
-    type: actionTypes.POPULATE_DISPLAY_PANEL,
-    payload: { displayPanelStatus }
+    type: actionTypes.DELETE_NOTE,
+    payload: { noteId }
   };
 }

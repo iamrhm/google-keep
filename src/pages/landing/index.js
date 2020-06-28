@@ -7,12 +7,18 @@ import CreateNote from "../../components/create-note";
 
 import { fetchAllNotes } from "../../redux/actions";
 
-import { ListContainer, ListType, ListWrapper, Container,CreateNoteContainer } from "./style";
+import {
+  ListContainer,
+  ListType,
+  ListWrapper,
+  Container,
+  CreateNoteContainer
+} from "./style";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { allNotes, displayPanelStatus } = useSelector((state) => state);
+  const { allNotes } = useSelector((state) => state);
   const fetchNotes = React.useCallback(() => dispatch(fetchAllNotes()), [
     dispatch
   ]);
@@ -31,14 +37,8 @@ const LandingPage = () => {
         <CreateNote />
       </CreateNoteContainer>
       <ListWrapper>
-        {displayPanelStatus.showArchived ? (
-          getArchivedNotes(allNotes, openNoteModal)
-        ) : (
-          <>
-            {getPinnedNotes(allNotes, openNoteModal)}
-            {getOtherNotes(allNotes, openNoteModal)}
-          </>
-        )}
+        {getPinnedNotes(allNotes, openNoteModal)}
+        {getOtherNotes(allNotes, openNoteModal)}
       </ListWrapper>
     </Container>
   );

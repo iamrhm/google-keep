@@ -6,7 +6,8 @@ import {
   pullAllNotes,
   pullNoteById,
   saveNewNote,
-  modifyNote
+  modifyNote,
+  deleteNote
 } from "../../apis";
 
 function* getAllNotes() {
@@ -47,11 +48,22 @@ function* putNote(action) {
   }
 }
 
+function* removeNoteById(action) {
+  try {
+    yield call(deleteNote, action.payload.noteId);
+    const allNotes = yield call(pullAllNotes);
+    yield put(populateAllNotes(allNotes));
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
 function* noteSagas() {
   yield takeLatest(actionTypes.GET_ALL_NOTES, getAllNotes);
   yield takeLatest(actionTypes.SUBMIT_NEW_NOTE, postNewNote);
   yield takeLatest(actionTypes.GET_NOTE_INFO, getNoteById);
   yield takeLatest(actionTypes.UPDATE_NOTE, putNote);
+  yield takeLatest(actionTypes.DELETE_NOTE, removeNoteById);
 }
 
 export default noteSagas;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Search } from "@styled-icons/boxicons-regular/Search";
 import { CloseOutline as Close } from "@styled-icons/evaicons-outline/CloseOutline";
 
-import styleConfig from "../../style";
+import styleConfig from "../../style-configs";
 
 export const Container = styled.div`
   position: fixed;

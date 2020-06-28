@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import styleConfig from "../../style";
+import styleConfig from "../../style-configs";
 
 export const ListType = styled.div`
   letter-spacing: 0.07272727em;

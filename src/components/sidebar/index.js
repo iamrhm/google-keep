@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { Container } from "./style";
+import { Container, IconContainer, MenuIcon } from "./style";
 
 import IconDrawer from "../icon-drawer";
 import AnimateDrawer from "../animate-drawer";
@@ -62,28 +62,42 @@ const Sidebar = () => {
       newState.noteIcon.isActive = false;
       newState.archiveIcon.isActive = true;
       dispatch({ type: "UPDATE_STATE", payload: newState });
+    } else if (currentLocation === undefined) {
+      let newState = { ...state };
+      newState.noteIcon.isActive = true;
+      newState.archiveIcon.isActive = false;
+      dispatch({ type: "UPDATE_STATE", payload: newState });
     }
   }, []);
 
   return (
-    <Container
-      isActive={isShown}
-      onMouseEnter={() => toggleShown(true)}
-      onMouseLeave={() => toggleShown(false)}
-    >
-      <AnimateDrawer
+    <>
+      <IconContainer>
+        <MenuIcon
+          onClick={(e) => {
+            toggleShown(!isShown);
+          }}
+        />
+      </IconContainer>
+      <Container
         isActive={isShown}
-        handleHover={handleHover}
-        handleClick={handleClick}
-        iconState={state}
-      />
-      <IconDrawer
-        isActive={isShown}
-        handleHover={handleHover}
-        handleClick={handleClick}
-        iconState={state}
-      />
-    </Container>
+        onMouseEnter={() => toggleShown(true)}
+        onMouseLeave={() => toggleShown(false)}
+      >
+        <AnimateDrawer
+          isActive={isShown}
+          handleHover={handleHover}
+          handleClick={handleClick}
+          iconState={state}
+        />
+        <IconDrawer
+          isActive={isShown}
+          handleHover={handleHover}
+          handleClick={handleClick}
+          iconState={state}
+        />
+      </Container>
+    </>
   );
 };
 

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import styleConfig from "../../../style";
+import styleConfig from "../../../style-configs";
+
 import { ArchiveIn as Archive } from "@styled-icons/boxicons-regular/ArchiveIn";
 import { ArchiveIn as ActiveArchive } from "@styled-icons/boxicons-solid/ArchiveIn";
-
 import { Pin } from "@styled-icons/boxicons-regular/Pin";
 import { Pin as ActivePin } from "@styled-icons/boxicons-solid/Pin";
 

@@ -1,19 +1,20 @@
 import styled from "styled-components";
-import DefaultStyle from "../../style";
+import styleConfig from "../../style-configs";
+
 import { ArchiveIn as Archive } from "@styled-icons/boxicons-regular/ArchiveIn";
 import { ArchiveIn as ActiveArchive } from "@styled-icons/boxicons-solid/ArchiveIn";
-
 import { Pin } from "@styled-icons/boxicons-regular/Pin";
 import { Pin as ActivePin } from "@styled-icons/boxicons-solid/Pin";
+import { Delete } from "@styled-icons/material/Delete";
 
 export const Wrapper = styled.div`
   min-height: 220px;
   width: 240px;
-  color: ${DefaultStyle.textColor};
+  color: ${styleConfig.textColor};
   white-space: pre-wrap;
   border-radius: 8px;
-  border: 1px solid ${DefaultStyle.borderColor};
-  background-color: ${DefaultStyle.backgroundColor};
+  border: 1px solid ${styleConfig.borderColor};
+  background-color: ${styleConfig.backgroundColor};
   overflow: hidden;
   position: relative;
   margin: 16px;
@@ -39,20 +40,34 @@ export const Header = styled.div`
 
 export const Footer = styled.div`
   height: 32px;
-  padding: 0 16px;
+  width: 100%;
   position: absolute;
   bottom: 0;
+`;
+
+export const ActionPanel = styled.div`
+  position: relative;
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
   opacity: ${(props) => (props.isHovered ? 0.8 : 0)};
 `;
 
 export const ArchiveIcon = styled(Archive)`
   width: 24px;
   height: 24px;
+  opacity: 0.8;
 `;
 
 export const ActiveArchiveIcon = styled(ActiveArchive)`
   width: 24px;
   height: 24px;
+`;
+
+export const DeleteIcon = styled(Delete)`
+  width: 24px;
+  height: 24px;
+  opacity: 0.8;
 `;
 
 export const PinIcon = styled(Pin)`

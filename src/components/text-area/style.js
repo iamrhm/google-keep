@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import styleConfig from "../../style";
+import styleConfig from "../../style-configs";
 
 export const InputTextArea = styled.textarea`
   display: block;
