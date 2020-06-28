@@ -3,10 +3,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllNotes } from "../../redux/actions";
 
-import noteFilter from "./note-filter";
 import ListContainer from "../../components/list-container";
 
-const Search = ({ queryParams }) => {
+const Archive = () => {
+  console.log("iam loading");
   const dispatch = useDispatch();
   const { allNotes } = useSelector((state) => state);
   const fetchNotes = React.useCallback(() => dispatch(fetchAllNotes()), [
@@ -16,15 +16,15 @@ const Search = ({ queryParams }) => {
   React.useEffect(() => {
     fetchNotes();
   }, [fetchNotes]);
-  return <div>{getFilteredNote(queryParams, allNotes)}</div>;
+  return <>{getArchivedNotes(allNotes)}</>;
 };
 
-function getFilteredNote(queryParams, allNotes) {
-  if (queryParams) {
-    const notes = noteFilter(queryParams, allNotes);
-    if (notes.length) return <ListContainer notes={notes} />;
+function getArchivedNotes(allNotes) {
+  if (Array.isArray(allNotes)) {
+    const archivedNotes = allNotes.filter((note) => note.isArchived === true);
+    if (archivedNotes.length) return <ListContainer notes={archivedNotes} />;
     else return <>No Data To Display</>;
   }
 }
 
-export default React.memo(Search);
+export default Archive;

@@ -1,85 +1,88 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import {
-  Container,
-  IconContainer,
-  ArchiveIcon,
-  NoteIcon,
-  IconDrawer,
-  AnimateDrawer,
-  AnimateIcon,
-  MenuText
-} from "./style";
+import { Container } from "./style";
+
+import IconDrawer from "../icon-drawer";
+import AnimateDrawer from "../animate-drawer";
+
+const initialState = {
+  noteIcon: {
+    isActive: true,
+    isHovered: false
+  },
+  archiveIcon: {
+    isActive: false,
+    isHovered: false
+  }
+};
+
+function reducer(state, { type, payload }) {
+  switch (type) {
+    case "UPDATE_STATE":
+      return { ...state, ...payload };
+    default:
+      return state;
+  }
+}
 
 const Sidebar = () => {
-  const [isActive, toggleActive] = React.useState(false);
-  const [currentIcon, setCurrentIcon] = React.useState("note");
-  const [hovered, toggleHovered] = React.useState({
-    name: "",
-    isHovered: false
-  });
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const [isShown, toggleShown] = React.useState(false);
+  const history = useHistory();
+
+  const handleClick = (name) => {
+    const newState = { ...state };
+    if (name === "note") {
+      newState.noteIcon = { isActive: true, isHovered: false };
+      newState.archiveIcon = { isActive: false, isHovered: false };
+    } else if (name === "archive") {
+      newState.noteIcon = { isActive: false, isHovered: false };
+      newState.archiveIcon = { isActive: true, isHovered: false };
+    }
+    dispatch({ type: "UPDATE_STATE", payload: newState });
+    if (name === "archive") history.push({ hash: `/${name}` });
+    else if (name === "note") history.push("/");
+  };
+
+  const handleHover = (name, isHovered) => {
+    const newState = { ...state };
+    if (name === "note") {
+      newState.noteIcon = { ...newState.noteIcon, isHovered: isHovered };
+    } else if (name === "archive") {
+      newState.archiveIcon = { ...newState.archiveIcon, isHovered: isHovered };
+    }
+    dispatch({ type: "UPDATE_STATE", payload: newState });
+  };
+
+  React.useLayoutEffect(() => {
+    let currentLocation = history.location.hash.split("/")[1];
+    if (currentLocation === "archive") {
+      let newState = { ...state };
+      newState.noteIcon.isActive = false;
+      newState.archiveIcon.isActive = true;
+      dispatch({ type: "UPDATE_STATE", payload: newState });
+    }
+  }, []);
 
   return (
     <Container
-      isActive={isActive}
-      onMouseEnter={() => toggleActive(true)}
-      onMouseLeave={() => toggleActive(false)}
+      isActive={isShown}
+      onMouseEnter={() => toggleShown(true)}
+      onMouseLeave={() => toggleShown(false)}
     >
-      <IconDrawer>
-        <IconContainer isActive={currentIcon === "note"}>
-          <NoteIcon />
-        </IconContainer>
-        <IconContainer isActive={currentIcon === "archive"}>
-          <ArchiveIcon />
-        </IconContainer>
-      </IconDrawer>
-      <AnimateDrawer isActive={isActive}>
-        <AnimateIcon
-          isActive={currentIcon === "note"}
-          isHovered={hovered.name === "note" && hovered.isHovered}
-          onMouseEnter={() =>
-            toggleHovered({
-              name: "note",
-              isHovered: true
-            })
-          }
-          onMouseLeave={() =>
-            toggleHovered({
-              name: "note",
-              isHovered: false
-            })
-          }
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentIcon("note");
-          }}
-        >
-          <MenuText isActive={isActive}>Note</MenuText>
-        </AnimateIcon>
-        <AnimateIcon
-          isActive={currentIcon === "archive"}
-          isHovered={hovered.name === "archive" && hovered.isHovered}
-          onMouseEnter={() =>
-            toggleHovered({
-              name: "archive",
-              isHovered: true
-            })
-          }
-          onMouseLeave={() =>
-            toggleHovered({
-              name: "archive",
-              isHovered: false
-            })
-          }
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentIcon("archive");
-          }}
-        >
-          <MenuText isActive={isActive}>Archive</MenuText>
-        </AnimateIcon>
-      </AnimateDrawer>
+      <AnimateDrawer
+        isActive={isShown}
+        handleHover={handleHover}
+        handleClick={handleClick}
+        iconState={state}
+      />
+      <IconDrawer
+        isActive={isShown}
+        handleHover={handleHover}
+        handleClick={handleClick}
+        iconState={state}
+      />
     </Container>
   );
 };

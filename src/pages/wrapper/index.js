@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import NoteModal from "../note-modal";
 import LandingPage from "../landing";
 import Search from "../search";
+import ArchivePage from "../archive";
 
 import getSearchQuery from "../../helpers/getSearchQuery";
 
@@ -18,18 +19,23 @@ const WrapperContainer = () => {
     else return null;
   };
 
-  const showSearch = () => {
-    const hashArray = history.location.hash.split("/");
-    const isSearch = hashArray[1] === "search" ? true : false;
+  const openSearch = () => {
     const searchQuery = getSearchQuery(history);
-    if (isSearch) {
-      return <Search queryParams={searchQuery} />;
+    return <Search queryParams={searchQuery} />;
+  };
+
+  const displayComponent = () => {
+    const hashArray = history.location.hash.split("/");
+    if (hashArray[1] === "search") {
+      return openSearch();
+    } else if (hashArray[1] === "archive") {
+      return <ArchivePage />
     } else return <LandingPage />;
   };
 
   return (
     <>
-      {showSearch()}
+      {displayComponent()}
       {openNoteModal()}
     </>
   );
