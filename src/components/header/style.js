@@ -65,6 +65,7 @@ export const IconWrapper = styled.div`
   align-items: center;
   opacity: ${(props) =>
     props.isShown === undefined ? 0.5 : props.isShown ? 0.5 : 0};
+  cursor: pointer;
 `;
 
 export const SearchIcon = styled(Search)`

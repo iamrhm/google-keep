@@ -123,6 +123,7 @@ const NoteForm = ({ initialNote, handleSubmit, toggleForm }) => {
         <CloseButton
           onClick={(e) => {
             e.stopPropagation();
+            submitData();
             toggleForm();
           }}
         >

@@ -28,4 +28,5 @@ export const MenuIcon = styled(Menu)`
   width: 28px;
   height: 28px;
   opacity: 0.7;
+  cursor: pointer;
 `;

@@ -28,10 +28,12 @@ export const ArchiveIcon = styled(Archive)`
   width: 28px;
   height: 28px;
   opacity: 0.7;
+  cursor: pointer;
 `;
 
 export const NoteIcon = styled(Bulb)`
   width: 28px;
   height: 28px;
   opacity: 0.7;
+  cursor: pointer;
 `;

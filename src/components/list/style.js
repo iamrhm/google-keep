@@ -57,17 +57,20 @@ export const ArchiveIcon = styled(Archive)`
   width: 24px;
   height: 24px;
   opacity: 0.8;
+  cursor: pointer;
 `;
 
 export const ActiveArchiveIcon = styled(ActiveArchive)`
   width: 24px;
   height: 24px;
+  cursor: pointer;
 `;
 
 export const DeleteIcon = styled(Delete)`
   width: 24px;
   height: 24px;
   opacity: 0.8;
+  cursor: pointer;
 `;
 
 export const PinIcon = styled(Pin)`
@@ -76,6 +79,7 @@ export const PinIcon = styled(Pin)`
   position: absolute;
   top: 12px;
   right: 12px;
+  cursor: pointer;
 `;
 
 export const ActivePinIcon = styled(ActivePin)`
@@ -84,6 +88,7 @@ export const ActivePinIcon = styled(ActivePin)`
   position: absolute;
   top: 12px;
   right: 12px;
+  cursor: pointer;
 `;
 
 export const Text = styled.div`
@@ -104,6 +109,7 @@ export const IconContainer = styled.div`
   height: 36px;
   float: right;
   opacity: ${(props) => (props.isHovered ? 0.8 : 0)};
+  cursor: pointer;
 `;
 
 export const ContentText = styled(Text)`
