@@ -61,6 +61,7 @@ const Header = ({ history }) => {
       updateSearchQuery(searchQueryFromHistory);
       debounce(() => handleSearchQueryChange(searchQueryFromHistory), 1000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

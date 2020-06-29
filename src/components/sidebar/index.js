@@ -68,6 +68,7 @@ const Sidebar = () => {
       newState.archiveIcon.isActive = false;
       dispatch({ type: "UPDATE_STATE", payload: newState });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useLayoutEffect(() => {
