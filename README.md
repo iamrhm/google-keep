@@ -2,7 +2,7 @@ Google Keep like app to create note and manage the same
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run: 
 
 ### `yarn start`
 
