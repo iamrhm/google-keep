@@ -57,6 +57,7 @@ const ResizableTextarea = ({
       });
       if (setFocus) inputTextAreaRef.current.focus();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
