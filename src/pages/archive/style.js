@@ -5,7 +5,6 @@ export const TextInfo = styled.span`
   font-size: 1.2rem;
   line-height: 1.5rem;
   box-sizing: border-box;
-  font-variant-ligatures: none;
   outline: none;
   white-space: pre-wrap;
   word-wrap: break-word;

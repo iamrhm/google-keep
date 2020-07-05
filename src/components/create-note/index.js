@@ -14,15 +14,15 @@ const CreateNote = () => {
     toggleForm(!showForm);
     dispatch(submitNewNote(newPost));
   }
-  function handleClick() {
+  function handleClose() {
     toggleForm(!showForm);
   }
   return (
     <Container>
       {showForm ? (
-        <NoteForm initialNote={null} handleSubmit={saveNote} toggleForm={handleClick} />
+        <NoteForm initialNote={null} handleSubmit={saveNote} toggleForm={handleClose} />
       ) : (
-        <TakeNote onClick={(e) => handleClick()}>Take a note...</TakeNote>
+        <TakeNote onClick={(e) => handleClose()}>Take a note...</TakeNote>
       )}
     </Container>
   );

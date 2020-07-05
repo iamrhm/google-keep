@@ -12,6 +12,7 @@ import {
 
 import debounce from "../../helpers/debounce";
 import getSearchQuery from "../../helpers/getSearchQuery";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 const Header = ({ history }) => {
   const [searchQuery, updateSearchQuery] = React.useState("");
@@ -64,9 +65,12 @@ const Header = ({ history }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const wrapperRef = React.useRef(null);
+  useOutsideClick(wrapperRef, () => setShown(false));
+
   return (
-    <Container>
-      <SearchBoxWrapper isShown={isShown}>
+    <Container ref={wrapperRef}>
+      <SearchBoxWrapper ref={wrapperRef} isShown={isShown}>
         <IconWrapper>
           <SearchIcon onClick={(e) => handleClick(e)} />
         </IconWrapper>

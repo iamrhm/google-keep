@@ -1,57 +1,39 @@
 import React from "react";
 
-import { Container, AnimateIcon, MenuText } from "./style";
+import {
+  Container,
+  AnimateIcon,
+  IconContainer,
+  MenuText,
+  ArchiveIcon,
+  NoteIcon
+} from "./style";
 
-const AnimateDrawer = ({
-  isActive,
-  handleHover = () => {},
-  handleClick = () => {},
-  iconState
-}) => {
+const AnimateDrawer = ({ isOpened, handleClick = () => {}, iconState }) => {
   const { noteIcon, archiveIcon } = iconState;
   return (
-    <Container isActive={isActive}>
+    <Container isOpened={isOpened}>
       <AnimateIcon
-        isActive={noteIcon.isActive}
-        isHovered={noteIcon.isHovered}
+        isActive={noteIcon.isActive && isOpened}
         onClick={(e) => {
           handleClick("note");
         }}
-        onMouseEnter={() =>
-          handleHover({
-            name: "note",
-            isHovered: true
-          })
-        }
-        onMouseLeave={() =>
-          handleHover({
-            name: "note",
-            isHovered: false
-          })
-        }
       >
-        <MenuText isActive={isActive}>Note</MenuText>
+        <IconContainer isActive={noteIcon.isActive}>
+          <NoteIcon />
+        </IconContainer>
+        <MenuText isOpened={isOpened}>Note</MenuText>
       </AnimateIcon>
       <AnimateIcon
-        isActive={archiveIcon.isActive}
-        isHovered={archiveIcon.isHovered}
+        isActive={archiveIcon.isActive && isOpened}
         onClick={(e) => {
           handleClick("archive");
         }}
-        onMouseEnter={() =>
-          handleHover({
-            name: "archive",
-            isHovered: true
-          })
-        }
-        onMouseLeave={() =>
-          handleHover({
-            name: "archive",
-            isHovered: false
-          })
-        }
       >
-        <MenuText isActive={isActive}>Archive</MenuText>
+        <IconContainer isActive={archiveIcon.isActive}>
+          <ArchiveIcon />
+        </IconContainer>
+        <MenuText isOpened={isOpened}>Archive</MenuText>
       </AnimateIcon>
     </Container>
   );

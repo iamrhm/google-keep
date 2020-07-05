@@ -8,7 +8,6 @@ import ListContainer from "../../components/list-container";
 import { TextInfo, TextContainer } from "./style";
 
 const Archive = () => {
-  console.log("iam loading");
   const dispatch = useDispatch();
   const { allNotes } = useSelector((state) => state);
   const fetchNotes = React.useCallback(() => dispatch(fetchAllNotes()), [

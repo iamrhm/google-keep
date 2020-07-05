@@ -18,9 +18,11 @@ import {
   ActionPanel
 } from "./style";
 
+import textFormatter from "../../helpers/formatText";
+
 const List = ({ note, openNoteModal = () => {} }) => {
   const dispatch = useDispatch();
-  const [isHovered, setIiHovered] = React.useState(false);
+  const [isHovered, setInHovered] = React.useState(false);
 
   const toggleArchive = (e) => {
     e.stopPropagation();
@@ -44,8 +46,8 @@ const List = ({ note, openNoteModal = () => {} }) => {
   return (
     <Wrapper
       isHovered={isHovered}
-      onMouseEnter={() => setIiHovered(true)}
-      onMouseLeave={() => setIiHovered(false)}
+      onMouseEnter={() => setInHovered(true)}
+      onMouseLeave={() => setInHovered(false)}
       onClick={() => openNoteModal(note.id)}
     >
       <Container>
@@ -57,9 +59,9 @@ const List = ({ note, openNoteModal = () => {} }) => {
               <PinIcon onClick={(e) => togglePin(e)} />
             )}
           </IconContainer>
-          <Text>{note.title}</Text>
+          <Text>{textFormatter(note.title, 50)}</Text>
         </Header>
-        <ContentText>{note.content}</ContentText>
+        <ContentText>{textFormatter(note.content, 360)}</ContentText>
       </Container>
       <Footer>
         <ActionPanel isHovered={isHovered || note.isArchived}>

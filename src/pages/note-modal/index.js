@@ -26,17 +26,17 @@ const NoteModal = ({ noteId }) => {
     fetchNote();
   }, [fetchNote, noteId]);
 
-  function handleClick() {
+  function handleClose() {
     history.goBack();
   }
 
   const showNoteForm = () => {
-    if (currentNote && noteId)
+    if (Number(currentNote.id) === Number(noteId))
       return (
         <NoteForm
           initialNote={currentNote}
           handleSubmit={updateNoteData}
-          toggleForm={handleClick}
+          toggleForm={handleClose}
         />
       );
   };

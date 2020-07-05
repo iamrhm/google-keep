@@ -9,6 +9,7 @@ import { Pin as ActivePin } from "@styled-icons/boxicons-solid/Pin";
 export const Container = styled.div`
   position: relative;
   min-height: 132px;
+  max-height: 600px;
   max-width: 540px;
   border: 1px solid ${styleConfig.borderColor};
   border-radius: 5px;
@@ -20,7 +21,6 @@ export const Container = styled.div`
   padding: 0 15px 38px 15px;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06);
-
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -32,6 +32,21 @@ export const Header = styled.div`
   > input {
     width: auto;
   }
+`;
+
+export const ContentInputSection = styled.div`
+  min-height: 38px;
+  width: 100%;
+  padding: 10px 0px 20px 0;
+  display: flex;
+`;
+
+export const TitleInputSection = styled.div`
+  min-height: 38px;
+  max-height: 200px;
+  width: 100%;
+  padding: 10px 0px 20px 0;
+  display: flex;
 `;
 
 export const InputField = styled.span`

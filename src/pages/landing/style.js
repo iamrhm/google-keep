@@ -3,8 +3,8 @@ import styleConfig from "../../style-configs";
 
 export const ListType = styled.div`
   letter-spacing: 0.07272727em;
-  font-size: 0.6875rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 600;
   line-height: 1rem;
   text-transform: uppercase;
   margin: 32px 20px 8px;

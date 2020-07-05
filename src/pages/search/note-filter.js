@@ -1,5 +1,4 @@
 export default function (text, noteArray) {
-  console.log(text);
   if (text) {
     let filteredArray = noteArray.filter((note) => {
       text = text.toUpperCase();
