@@ -29,6 +29,10 @@ export const SearchBoxWrapper = styled.div`
     !props.isShown
       ? " 0 1px 1px 0 rgba(65,69,73,0.3), 0 1px 3px 1px rgba(65,69,73,0.15);"
       : "-2px -3px 13px 2px rgba(0,0,0,0.034), 0 6.7px 5.3px rgba(0,0,0,0.048), 0 12.5px 10px rgba(0,0,0,0.06)"};
+
+  @media (max-width: 480px) {
+    margin-left: 50px;
+  }
 `;
 
 export const SearchInput = styled.input`

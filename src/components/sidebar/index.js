@@ -3,17 +3,14 @@ import { useHistory } from "react-router-dom";
 
 import { Container, IconContainer, MenuIcon } from "./style";
 
-import IconDrawer from "../icon-drawer";
 import AnimateDrawer from "../animate-drawer";
 
 const initialState = {
   noteIcon: {
-    isActive: true,
-    isHovered: false
+    isActive: true
   },
   archiveIcon: {
-    isActive: false,
-    isHovered: false
+    isActive: false
   }
 };
 
@@ -34,25 +31,26 @@ const Sidebar = () => {
   const handleClick = (name) => {
     const newState = { ...state };
     if (name === "note") {
-      newState.noteIcon = { isActive: true, isHovered: false };
-      newState.archiveIcon = { isActive: false, isHovered: false };
+      newState.noteIcon = { isActive: true };
+      newState.archiveIcon = { isActive: false };
     } else if (name === "archive") {
-      newState.noteIcon = { isActive: false, isHovered: false };
-      newState.archiveIcon = { isActive: true, isHovered: false };
+      newState.noteIcon = { isActive: false };
+      newState.archiveIcon = { isActive: true };
     }
     dispatch({ type: "UPDATE_STATE", payload: newState });
     if (name === "archive") history.push({ hash: `/${name}` });
     else if (name === "note") history.push("/");
   };
 
-  const handleHover = (name, isHovered) => {
-    const newState = { ...state };
-    if (name === "note") {
-      newState.noteIcon = { ...newState.noteIcon, isHovered: isHovered };
-    } else if (name === "archive") {
-      newState.archiveIcon = { ...newState.archiveIcon, isHovered: isHovered };
+  const handleSideBarToggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log(isShown);
+    if (!isShown) {
+      toggleShown(true);
+    } else {
+      toggleShown(false);
     }
-    dispatch({ type: "UPDATE_STATE", payload: newState });
   };
 
   React.useLayoutEffect(() => {
@@ -86,7 +84,7 @@ const Sidebar = () => {
       <IconContainer>
         <MenuIcon
           onClick={(e) => {
-            toggleShown(!isShown);
+            handleSideBarToggle(e);
           }}
         />
       </IconContainer>
@@ -96,14 +94,7 @@ const Sidebar = () => {
         onMouseLeave={() => toggleShown(false)}
       >
         <AnimateDrawer
-          isActive={isShown}
-          handleHover={handleHover}
-          handleClick={handleClick}
-          iconState={state}
-        />
-        <IconDrawer
-          isActive={isShown}
-          handleHover={handleHover}
+          isOpened={isShown}
           handleClick={handleClick}
           iconState={state}
         />
