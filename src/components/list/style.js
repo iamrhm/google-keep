@@ -9,6 +9,7 @@ import { Delete } from "@styled-icons/material/Delete";
 
 export const Wrapper = styled.div`
   min-height: 220px;
+  max-height: 600px;
   width: 240px;
   color: ${styleConfig.textColor};
   white-space: pre-wrap;
@@ -31,11 +32,11 @@ export const Wrapper = styled.div`
 export const Container = styled.div`
   min-height: 30px;
   margin-bottom: 45px;
-  white-space: pre-wrap;
 `;
 
 export const Header = styled.div`
   min-height: 38px;
+  max-height: 120px;
 `;
 
 export const Footer = styled.div`
@@ -93,11 +94,11 @@ export const ActivePinIcon = styled(ActivePin)`
 
 export const Text = styled.div`
   letter-spacing: 0.00625em;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
   line-height: 1.5rem;
   width: 100%;
   box-sizing: border-box;
-  font-variant-ligatures: none;
   outline: none;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -113,5 +114,9 @@ export const IconContainer = styled.div`
 `;
 
 export const ContentText = styled(Text)`
+  letter-spacing: 0.01428571em;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25rem;
   padding: 2px 16px;
 `;

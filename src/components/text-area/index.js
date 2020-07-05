@@ -2,6 +2,7 @@ import React from "react";
 import { InputTextArea } from "./style";
 const initialState = {
   rows: 5,
+  maxRows: 30
 };
 
 function reducer(state, { type, payload }) {
@@ -14,6 +15,7 @@ function reducer(state, { type, payload }) {
 }
 
 const ResizableTextarea = ({
+  setFocus = false,
   propsRow = 5,
   propsName,
   propsPlaceholder,
@@ -28,7 +30,7 @@ const ResizableTextarea = ({
   const handleChange = (event) => {
     const textareaLineHeight = 24;
     let currentRows = ~~(event.target.scrollHeight / textareaLineHeight);
-
+    currentRows = currentRows > state.maxRows ? state.maxRows : currentRows;
     updateState({
       type: "UPDATE_TEXTAREA",
       payload: {
@@ -41,16 +43,20 @@ const ResizableTextarea = ({
   const inputTextAreaRef = React.useRef(null);
 
   React.useLayoutEffect(() => {
-    const textareaLineHeight = 24;
-    let currentRows = ~~(
-      inputTextAreaRef.current.scrollHeight / textareaLineHeight
-    );
-    updateState({
-      type: "UPDATE_TEXTAREA",
-      payload: {
-        rows: currentRows
-      }
-    });
+    if (inputTextAreaRef.current) {
+      const textareaLineHeight = 24;
+      let currentRows = ~~(
+        inputTextAreaRef.current.scrollHeight / textareaLineHeight
+      );
+      currentRows = currentRows > state.maxRows ? state.maxRows : currentRows;
+      updateState({
+        type: "UPDATE_TEXTAREA",
+        payload: {
+          rows: currentRows
+        }
+      });
+      if (setFocus) inputTextAreaRef.current.focus();
+    }
   }, []);
 
   return (

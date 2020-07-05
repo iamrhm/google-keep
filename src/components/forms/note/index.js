@@ -8,10 +8,13 @@ import {
   ActivePinIcon,
   PinIcon,
   ActiveArchiveIcon,
-  ArchiveIcon
+  ArchiveIcon,
+  ContentInputSection,
+  TitleInputSection
 } from "./style";
 
 import { useOutsideClick } from "../../../hooks/useOutsideClick";
+import { useEscapeKeyEvent } from "../../../hooks/useEscapeKeyEvent";
 
 import TextArea from "../../text-area";
 
@@ -38,16 +41,12 @@ function reducer(state, { type, payload }) {
   }
 }
 
-const NoteForm = ({ initialNote, handleSubmit, toggleForm }) => {
+const NoteForm = ({
+  initialNote,
+  handleSubmit = () => {},
+  toggleForm = () => {}
+}) => {
   const [state, updateState] = React.useReducer(reducer, initialNote, init);
-
-  React.useEffect(() => {
-    if (initialNote !== null)
-      updateState({
-        type: "UPDATE_NOTE_DATA",
-        payload: { noteData: initialNote }
-      });
-  }, [initialNote]);
 
   function handleInputChange(e) {
     const newNoteData = state.noteData;
@@ -79,7 +78,7 @@ const NoteForm = ({ initialNote, handleSubmit, toggleForm }) => {
 
   const toggleArchive = (e) => {
     e.stopPropagation();
-    let updatedNote = { ...state.note };
+    let updatedNote = { ...state.noteData };
     updatedNote.isArchived = !updatedNote.isArchived;
     updateState({
       type: "UPDATE_NOTE_DATA",
@@ -89,6 +88,8 @@ const NoteForm = ({ initialNote, handleSubmit, toggleForm }) => {
 
   const wrapperRef = React.useRef(null);
   useOutsideClick(wrapperRef, submitData);
+
+  useEscapeKeyEvent(submitData);
 
   return (
     <Container ref={wrapperRef}>
@@ -100,20 +101,25 @@ const NoteForm = ({ initialNote, handleSubmit, toggleForm }) => {
             <PinIcon onClick={(e) => togglePin(e)} />
           )}
         </IconContainer>
+        <TitleInputSection>
+          <TextArea
+            setFocus={true}
+            propsRow={2}
+            propsName="title"
+            propsPlaceholder="Title"
+            propsValue={state.noteData.title}
+            handleInputChange={handleInputChange}
+          />
+        </TitleInputSection>
+      </Header>
+      <ContentInputSection>
         <TextArea
-          propsRow={2}
-          propsName="title"
-          propsPlaceholder="Title"
-          propsValue={state.noteData.title}
+          propsName="content"
+          propsPlaceholder="Take a note..."
+          propsValue={state.noteData.content}
           handleInputChange={handleInputChange}
         />
-      </Header>
-      <TextArea
-        propsName="content"
-        propsPlaceholder="Take a note..."
-        propsValue={state.noteData.content}
-        handleInputChange={handleInputChange}
-      />
+      </ContentInputSection>
       <Footer>
         {state.noteData.isArchived ? (
           <ActiveArchiveIcon onClick={(e) => toggleArchive(e)} />
@@ -124,7 +130,6 @@ const NoteForm = ({ initialNote, handleSubmit, toggleForm }) => {
           onClick={(e) => {
             e.stopPropagation();
             submitData();
-            toggleForm();
           }}
         >
           Close
