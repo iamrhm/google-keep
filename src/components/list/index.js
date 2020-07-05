@@ -22,7 +22,7 @@ import textFormatter from "../../helpers/formatText";
 
 const List = ({ note, openNoteModal = () => {} }) => {
   const dispatch = useDispatch();
-  const [isHovered, setIiHovered] = React.useState(false);
+  const [isHovered, setInHovered] = React.useState(false);
 
   const toggleArchive = (e) => {
     e.stopPropagation();
@@ -46,8 +46,8 @@ const List = ({ note, openNoteModal = () => {} }) => {
   return (
     <Wrapper
       isHovered={isHovered}
-      onMouseEnter={() => setIiHovered(true)}
-      onMouseLeave={() => setIiHovered(false)}
+      onMouseEnter={() => setInHovered(true)}
+      onMouseLeave={() => setInHovered(false)}
       onClick={() => openNoteModal(note.id)}
     >
       <Container>

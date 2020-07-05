@@ -62,24 +62,36 @@ export const SearchInput = styled.input`
 `;
 
 export const IconWrapper = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: ${(props) =>
     props.isShown === undefined ? 0.5 : props.isShown ? 0.5 : 0};
   cursor: pointer;
+  border-radius: 50%;
+  &:hover {
+    background-color: rgba(60, 64, 67, 0.08);
+  }
 `;
 
 export const SearchIcon = styled(Search)`
   width: 32px;
   height: 32px;
   cursor: pointer;
+  @media (max-width: 480px) {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export const CloseIcon = styled(Close)`
   width: 32px;
   height: 32px;
   cursor: pointer;
+  @media (max-width: 480px) {
+    width: 24px;
+    height: 24px;
+  }
 `;

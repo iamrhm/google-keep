@@ -24,6 +24,19 @@ export const IconContainer = styled.div`
   cursor: pointer;
 `;
 
+export const MenuIconWrapper = styled.div`
+  width: 42px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(60, 64, 67, 0.08);
+  }
+`;
+
 export const MenuIcon = styled(Menu)`
   width: 28px;
   height: 28px;

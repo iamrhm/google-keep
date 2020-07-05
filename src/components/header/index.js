@@ -66,11 +66,11 @@ const Header = ({ history }) => {
   }, []);
 
   const wrapperRef = React.useRef(null);
-  useOutsideClick(wrapperRef, ()=>setShown(false));
+  useOutsideClick(wrapperRef, () => setShown(false));
 
   return (
     <Container ref={wrapperRef}>
-      <SearchBoxWrapper isShown={isShown}>
+      <SearchBoxWrapper ref={wrapperRef} isShown={isShown}>
         <IconWrapper>
           <SearchIcon onClick={(e) => handleClick(e)} />
         </IconWrapper>

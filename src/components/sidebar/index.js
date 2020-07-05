@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { Container, IconContainer, MenuIcon } from "./style";
+import { Container, IconContainer, MenuIcon, MenuIconWrapper } from "./style";
 
 import AnimateDrawer from "../animate-drawer";
 
@@ -82,11 +82,13 @@ const Sidebar = () => {
   return (
     <>
       <IconContainer>
-        <MenuIcon
-          onClick={(e) => {
-            handleSideBarToggle(e);
-          }}
-        />
+        <MenuIconWrapper>
+          <MenuIcon
+            onClick={(e) => {
+              handleSideBarToggle(e);
+            }}
+          />
+        </MenuIconWrapper>
       </IconContainer>
       <Container
         isActive={isShown}
