@@ -9,6 +9,6 @@ export default function (history) {
         query = hashArray[0];
       }
     }
-    return query;
+    return decodeURI(query);
   }
 }

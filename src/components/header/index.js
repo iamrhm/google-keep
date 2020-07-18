@@ -10,13 +10,14 @@ import {
   CloseIcon
 } from "./style";
 
-import debounce from "../../helpers/debounce";
 import getSearchQuery from "../../helpers/getSearchQuery";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { useDebounce } from "../../hooks/useDebounce";
 
 const Header = ({ history }) => {
   const [searchQuery, updateSearchQuery] = React.useState("");
   const [isShown, setShown] = React.useState(false);
+  const debounceHandler = useDebounce(searchQuery, 1000);
 
   const handleSearchQueryChange = (query) => {
     if (query.length > 2)
@@ -35,7 +36,6 @@ const Header = ({ history }) => {
       query = e.target.value;
     }
     updateSearchQuery(query);
-    debounce(() => handleSearchQueryChange(query), 1000);
   };
 
   const handleClick = () => {
@@ -60,10 +60,15 @@ const Header = ({ history }) => {
     const searchQueryFromHistory = getSearchQuery(history);
     if (searchQueryFromHistory && searchQueryFromHistory !== "") {
       updateSearchQuery(searchQueryFromHistory);
-      debounce(() => handleSearchQueryChange(searchQueryFromHistory), 1000);
+      handleSearchQueryChange(debounceHandler);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  React.useEffect(() => {
+    if (debounceHandler) handleSearchQueryChange(debounceHandler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debounceHandler]);
 
   const wrapperRef = React.useRef(null);
   useOutsideClick(wrapperRef, () => setShown(false));
